@@ -297,6 +297,11 @@ func (p *Plugin) Template() EmbedObject {
 		description = fmt.Sprintf("%s pushed tag %s", p.Build.Author, p.Build.Branch)
 	}
 
+	location := time.FixedZone("UTC+8", +8*60*60)
+	finished_time := fmt.Sprintf("builded %s, %s",
+		p.Build.Status,
+		time.Unix(int64(p.Build.Finished),0).In(location).Format("2006-01-02 15:04:05 Mon"))
+
 	return EmbedObject{
 		Title:       p.Build.Message,
 		Description: description,
@@ -307,9 +312,7 @@ func (p *Plugin) Template() EmbedObject {
 			IconURL: p.Build.Avatar,
 		},
 		Footer: EmbedFooterObject{
-			Text:    fmt.Sprintf("builded %s, %s",
-				p.Build.Status,
-				time.Unix(int64(p.Build.Finished),0).Format("2006-01-02 15:04:05")),
+			Text:    finished_time,
 			IconURL: DroneIconURL,
 		},
 	}
