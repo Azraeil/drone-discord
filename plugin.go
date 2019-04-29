@@ -306,7 +306,7 @@ func (p *Plugin) Template() EmbedObject {
 			IconURL: p.Build.Avatar,
 		},
 		Footer: EmbedFooterObject{
-			Text:    DroneDesc,
+			Text:    fmt.Sprintf("Builded %s, %s", p.Build.Status, p.Build.Finished),
 			IconURL: DroneIconURL,
 		},
 	}
