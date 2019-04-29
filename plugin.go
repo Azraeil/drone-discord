@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/appleboy/drone-facebook/template"
 )
@@ -306,7 +307,9 @@ func (p *Plugin) Template() EmbedObject {
 			IconURL: p.Build.Avatar,
 		},
 		Footer: EmbedFooterObject{
-			Text:    DroneDesc,
+			Text:    fmt.Sprintf("builded %s, %s",
+				p.Build.Status,
+				time.Unix(int64(p.Build.Finished),0).Format("2006-01-02 15:04:05")),
 			IconURL: DroneIconURL,
 		},
 	}
